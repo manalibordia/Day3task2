@@ -1,0 +1,24 @@
+1. Get the total orders for each movie in 'Pune'
+
+select b.movie_name , sum(b.number_of_tickets) as total_order from booking_order as b join
+ shows_show as s on b.theatre_id = s.theatre_id where city like 'pune' group by b.movie_name;
+
+2. Find the unique discount vouchers used during booking along with total number of
+orders
+
+select coupon, sum(number_of_tickets) as total_orders from booking_order group by coupon;
+
+
+3. Get all the email ids who booked more than 2 movies and at least 1 event
+select user_email, sum(number_of_tickets) as s from booking_order where  s> 2 AND order_type like 'movie' group
+ by user_email
+intersect
+select user_email, sum(number_of_tickets) as l from booking_order where l >= 1 AND order_type like 'event' group by user_email
+
+
+4. Get the total ticket amount for each movie theater ie. cinepolis, e-square, carnival
+and miraj.	
+select sum(b.ticket_amount) from booking_order as b join shows_show as s on b.theatre_id=s.theatre_id where theatre_detail in ;
+
+5. Get all the bookings not done from web browser.
+6. Get all music events booked in December 2016.
